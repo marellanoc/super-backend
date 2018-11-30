@@ -3,14 +3,19 @@ var mongoose = require('mongoose')
 //GET - Show product id
 exports.getProduct = function (req, res) {
   //'find' is an abstraction of 'find' method from mongodb
-  id = req.params.productId;
-  res.json({
-    name: 'Galletas de Mantequilla',
-    productId: id,
-    brand: 'Costa',
-    barcode: 7802215505294,
-    picture: 'idPicture'
-  });
+  const query = Product.findById(req.params.productId).exec()
+  query.then((resource) => {
+
+    if (!resource) {
+      return next(errors.RESOURCE_NOT_FOUND())
+    }
+
+    return res.json(resource)
+  })
+    .catch((err) => {
+      // send the error to the error handler
+      return next(err)
+    })
 }
 
 //PUT - Update product

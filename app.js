@@ -40,12 +40,12 @@ var api = express.Router()
 api.route('/score/:productId').get(scoreController.getScore)
 
 api.route('/offer/:id').get(offerController.offerDetails)
-api.route('/offer/create').post(offerController.offerCreate)
-api.route('/offer/update').put(offerController.offerUpdate)
+api.route('/offer').post(offerController.offerCreate)
+api.route('/offer').put(offerController.offerUpdate)
 
-api.route('/product/update').put(productController.updateProduct)
+api.route('/product').put(productController.updateProduct)
 api.route('/product/:productId').get(productController.getProduct)
-api.route('/product/create').post(productController.addProduct)
+api.route('/product').post(productController.addProduct)
 
 
 //After we define our routes, we have to tell to express that we shall use our 'routes', starting over root
