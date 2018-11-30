@@ -1,8 +1,7 @@
 var mongoose = require('mongoose')
 var Product = mongoose.model('Product')
-
 //GET - Show product id
-exports.getScore = function (req, res) {
+exports.getScore = function (req, res, next) {
 
   const query = Product.findById(req.params.productId).exec()
   query.then((resource) => {

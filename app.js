@@ -9,7 +9,7 @@ var mongoose = require('mongoose')
 var app = express()
 
 //MongoDB database url. In this case, we have a db named 'users'
-var url = 'mongodb://localhost/users'
+var url = 'mongodb://diegomartin:SUPER!pass@104.248.219.116:27017/super'
 
 //We use bodyParser to provide fast json parsing of body data of the request
 app.use(bodyParser.json())
@@ -20,16 +20,19 @@ app.get('/', function (request, response) {
 })
 
 //Connection to mongodb using mongoose
-mongoose.connect(url, function (error, response) {
-  if (error) throw error
-  console.log('CONECTADOS A LA DB')
-})
 
-//Here we declarate all controllers that our application will use
-var scoreController = require('./services/scoreController')
-var productController = require('./controller/productController')
-var offerController = require('./controller/offerController')
-var priceController = require('./controller/priceController')
+mongoose.connect(url, { useNewUrlParser: true })
+
+//Here we declarate all models and controllers that our application will use
+
+require('./models/product.model')
+require('./models/supermarket.model')
+var scoreController = require('./services/score.controller')
+var productController = require('./services/product.controller')
+var offerController = require('./services/offer.controller')
+
+
+// var priceController = require('./controller/price.controller')
 
 //Router allow to us to easily match the endpoint with their respective controller
 var api = express.Router()
@@ -42,7 +45,7 @@ api.route('/offer/update').put(offerController.offerUpdate)
 
 api.route('/product/update').put(productController.updateProduct)
 api.route('/product/:productId').get(productController.getProduct)
-api.route('/product/create').post(prorductController.addProduct)
+api.route('/product/create').post(productController.addProduct)
 
 
 //After we define our routes, we have to tell to express that we shall use our 'routes', starting over root
