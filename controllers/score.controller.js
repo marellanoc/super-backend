@@ -1,5 +1,4 @@
-var mongoose = require('mongoose')
-var Product = mongoose.model('Product')
+var Product = require('../models/product.model');
 //GET - Show product id
 exports.getScore = function (req, res, next) {
 

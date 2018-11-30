@@ -7,7 +7,7 @@ var productShema = new Schema({
   name: String,
   brand: String,
   price: [{
-    supermarket: String,
+    supermarketName: String,
     value: Number,
     history: [{
       value: Number,
@@ -16,11 +16,37 @@ var productShema = new Schema({
         type: String,
         quantity: Number
       },
-      date: Date,
-    }],
+      date: Date
+    }]
   }],
   score: { avgStars: Number, stars: [] },
   picture: String
 });
 
-module.exports = mongoose.model('Product', productShema);
+module.exports = mongoose.model('Product', productShema, 'products');
+
+
+/*
+
+{
+  "serial": 123,
+  "name": "String",
+  "brand": "String",
+  "price": [{
+    "supermarketName": "String",
+    "value": 123,
+    "history": [{
+      "value": 123,
+      "offer": {
+        "active": 1,
+        "type": "String",
+        "quantity": 123
+      },
+      "date": 1/1/2001,
+    }],
+  }],
+  "score": { "avgStars": 123, "stars": [] },
+  "picture": "String"
+}
+
+*/

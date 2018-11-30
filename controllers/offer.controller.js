@@ -1,4 +1,4 @@
-var mongoose = require('mongoose')
+var Product = require('../models/product.model');
 
 exports.offerCreate = function (req, res) {
   let offer = new Offer(
