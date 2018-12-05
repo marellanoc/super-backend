@@ -10,7 +10,7 @@ exports.getProduct = function (req, res, next, next) {
 
 //POST - Create a product
 exports.addProduct = function (req, res, next) {
-  var product = new Product(req.body.product);
+  var product = new Product(req.body);
   console.log(req.body)
   product.save(function (err) {
     if (err) {

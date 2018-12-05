@@ -25,11 +25,11 @@ mongoose.connect(url, { useNewUrlParser: true })
 
 //Here we declarate all models and controllers that our application will use
 
-require('./models/product')
-require('./models/supermarket')
+require('./models/product.model')
+require('./models/supermarket.model')
 var scoreController = require('./controllers/score.controller')
 var productController = require('./controllers/product.controller')
-var offerController = require('./controllers/offer.controllers')
+var offerController = require('./controllers/offer.controller')
 
 
 // var priceController = require('./controller/price.controller')
