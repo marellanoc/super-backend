@@ -25,11 +25,9 @@ mongoose.connect(url, { useNewUrlParser: true })
 
 //Here we declarate all models and controllers that our application will use
 
-require('./models/product')
-require('./models/supermarket')
-var scoreController = require('./controllers/score.controller')
+require('./models/product.model')
+require('./models/supermarket.model')
 var productController = require('./controllers/product.controller')
-var offerController = require('./controllers/offer.controllers')
 
 
 // var priceController = require('./controller/price.controller')
@@ -37,16 +35,12 @@ var offerController = require('./controllers/offer.controllers')
 //Router allow to us to easily match the endpoint with their respective controller
 var api = express.Router()
 
-api.route('/score/:productId').get(scoreController.getScore)
-
-api.route('/offer/:id').get(offerController.offerDetails)
-api.route('/offer').post(offerController.offerCreate)
-api.route('/offer').put(offerController.offerUpdate)
-
-api.route('/product').put(productController.updateProduct)
-api.route('/product/:productId').get(productController.getProduct)
-api.route('/product').post(productController.addProduct)
-
+api.route('/product/serial/:serial').get(productController.getBySerial)
+api.route('/product/name/:name').get(productController.getByName)
+api.route('/product/').get(productController.list)
+api.route('/product/').post(productController.add)
+api.route('/product/:id').put(productController.update)
+api.route('/product/:id').delete(productController.update)
 
 //After we define our routes, we have to tell to express that we shall use our 'routes', starting over root
 app.use('/', api)
