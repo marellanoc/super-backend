@@ -1,8 +1,8 @@
 var Product = require('../models/product.model');
 
 //GET - Show product details
-exports.getProduct = function (req, res, next, next) {
-  Product.findById(req.params.productId, function (err, product) {
+exports.getProduct = function (req, res, next) {
+  Product.findById(req.params.id, function (err, product) {
     if (err) return next(err);
     res.send(product);
   })
@@ -22,7 +22,7 @@ exports.addProduct = function (req, res, next) {
 
 //PUT - Update a product
 exports.updateProduct = function (req, res, next) {
-  Product.findByIdAndUpdate(req.params.ProductId, { $set: req.body }, function (err, product) {
+  Product.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err, product) {
     if (err) return next(err);
     res.send('Product udpated.');
   });
@@ -30,7 +30,7 @@ exports.updateProduct = function (req, res, next) {
 
 //DELETE - Delete a product
 exports.deleteProduct = function (req, res, next) {
-  Product.findByIdAndRemove(req.params.productId, function (err) {
+  Product.findByIdAndRemove(req.params.id, function (err) {
       if (err) return next(err);
       res.send('Deleted successfully!');
   })

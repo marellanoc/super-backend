@@ -2,7 +2,7 @@ var Product = require('../models/product.model');
 //GET - Show product id
 exports.getScore = function (req, res, next) {
 
-  const query = Product.findById(req.params.productId).exec()
+  const query = Product.findById(req.params.id).exec()
   query.then((resource) => {
 
     if (!resource) {
