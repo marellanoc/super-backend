@@ -42,6 +42,7 @@ api.route('/product/name/:name').get(productController.getByName)
 api.route('/product/').get(productController.list)
 api.route('/product/').post(productController.add)
 api.route('/product/:id').put(productController.update)
+api.route('/product/add-price/:id').put(productController.addPrice)
 api.route('/product/:id').delete(productController.delete)
 
 //After we define our routes, we have to tell to express that we shall use our 'routes', starting over root
