@@ -8,9 +8,9 @@ exports.getBySerial = function (req, res, next) {
   })
 }
 
-//GET - Show product details retrived by product name
+//GET - Show product details retrived by product name req.params.name
 exports.getByName = function (req, res, next) {
-  Product.find({ name: "/"+req.params.name+"/"}, function (err, product) {
+  Product.find({ name: "/"+"Cachantun"+"/"}, function (err, product) {
     if (err) return next(err);
     res.send(product);
   })
