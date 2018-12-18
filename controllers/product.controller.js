@@ -45,7 +45,7 @@ exports.update = function (req, res, next) {
 }
 
 exports.addPrice = function (req, res, next) {
-      Product.updateOne({"_id" : new ObjectId(req.params.id), "price.supermarketName" : req.body.supermarketName }, {
+      Product.updateOne({_id : req.params.id, "price.supermarketName" : req.body.supermarketName }, {
         $set: {
           "price": { "price.$.value": req.body.value}
           }
