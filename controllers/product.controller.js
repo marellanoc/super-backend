@@ -62,7 +62,7 @@ exports.addPrice = function (req, res, next) {
       Product.findOneAndUpdate(
         {_id : req.params.id, price : { $elemMatch : {supermarketName : req.body.supermarketName} }}, 
         { $set: 
-          { "price.$.value": req.params.value}
+          { "price.$.value": req.body.value}
         },
         function (err, product) {
         if (err) return next(err);
