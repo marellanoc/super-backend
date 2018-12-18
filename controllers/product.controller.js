@@ -54,7 +54,6 @@ exports.addPrice = function (req, res, next) {
         res.send(`Price added.`);
       }) 
     }
-    Product.findOneAndUpdate()
 
 //DELETE - Delete a product
 exports.delete = function (req, res, next) {
