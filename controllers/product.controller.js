@@ -45,17 +45,31 @@ exports.update = function (req, res, next) {
 }
 
 exports.addPrice = function (req, res, next) {
-  Product.findByIdAndUpdate(req.params.id, {
-    $push: {
-      "price": {
-        supermarketName: req.body.supermarketName,
-        value: req.body.value
-      }
+  Product.find({_id : req.params.id ,"price.supermarketName" : req.body.supermarketName}, function(err, data){
+    if (data.length == 0 ){
+      Product.findByIdAndUpdate(req.params.id, {
+        $push: {
+          "price": {
+            supermarketName: req.body.supermarketName,
+            value: req.body.value
+          }
+        }
+      }, function (err, product) {
+        if (err) return next(err);
+        res.send(`Price added.`);
+      })
+    }else{
+      Product.findOneAndUpdate(
+        {_id : req.params.id, price : { $elemMatch : {supermarketName : req.body.supermarketName} }}, 
+        { $set: 
+          { "price.$.value": req.body.value}
+        },
+        function (err, product) {
+        if (err) return next(err);
+        res.send(`Price added.`);
+      }) 
     }
-  }, function (err, product) {
-    if (err) return next(err);
-    res.send(`Price added.`);
-  });
+  })
 }
 
 //DELETE - Delete a product
