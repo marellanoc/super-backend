@@ -45,7 +45,7 @@ exports.update = function (req, res, next) {
 }
 
 exports.addPrice = function (req, res, next) {
-      Product.updateOne({"_id" : req.params.id, "price.supermarket" : req.body.supermarketName }, {
+      Product.updateOne({"_id" : new ObjectId(req.params.id), "price.supermarket" : req.body.supermarketName }, {
         $set: {
           "price": { "price.$.value": req.body.value}
           }
@@ -54,6 +54,7 @@ exports.addPrice = function (req, res, next) {
         res.send(`Price added.`);
       }) 
     }
+    Product.findOneAndUpdate()
 
 //DELETE - Delete a product
 exports.delete = function (req, res, next) {
