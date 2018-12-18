@@ -45,6 +45,20 @@ exports.update = function (req, res, next) {
 }
 
 exports.addPrice = function (req, res, next) {
+  Product.find({_id : req.params.id ,"price.supermarketName" : req.body.supermarketName}, function(err, data){
+    if (data.length == 0 ){
+      Product.findByIdAndUpdate(req.params.id, {
+        $push: {
+          "price": {
+            supermarketName: req.body.supermarketName,
+            value: req.body.value
+          }
+        }
+      }, function (err, product) {
+        if (err) return next(err);
+        res.send(`Price added.`);
+      })
+    }else{
       Product.updateOne({_id : req.params.id, "price.supermarketName" : req.body.supermarketName }, {
         $set: {
           "price": { "price.$.value": req.body.value}
@@ -54,6 +68,8 @@ exports.addPrice = function (req, res, next) {
         res.send(`Price added.`);
       }) 
     }
+  })
+}
 
 //DELETE - Delete a product
 exports.delete = function (req, res, next) {
