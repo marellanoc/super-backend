@@ -10,7 +10,7 @@ exports.getBySerial = function (req, res, next) {
 
 //GET - Show product details retrived by product name
 exports.getByName = function (req, res, next) {
-  Product.find({ name: req.params.name }, function (err, product) {
+  Product.find({ name: new RegExp(req.params.name, 'i') }, function (err, product) {
     if (err) return next(err);
     res.send(product);
   })
@@ -42,6 +42,34 @@ exports.update = function (req, res, next) {
     if (err) return next(err);
     res.send(`Product ${req.body.name} udpated.`);
   });
+}
+
+exports.addPrice = function (req, res, next) {
+  Product.find({_id : req.params.id ,"price.supermarketName" : req.body.supermarketName}, function(err, data){
+    if (data.length == 0 ){
+      Product.findByIdAndUpdate(req.params.id, {
+        $push: {
+          "price": {
+            supermarketName: req.body.supermarketName,
+            value: req.body.value
+          }
+        }
+      }, function (err, product) {
+        if (err) return next(err);
+        res.send(`Price added.`);
+      })
+    }else{
+      Product.findOneAndUpdate(
+        {_id : req.params.id, price : { $elemMatch : {supermarketName : req.body.supermarketName} }}, 
+        { $set: 
+          { "price.$.value": req.body.value}
+        },
+        function (err, product) {
+        if (err) return next(err);
+        res.send(`Price added.`);
+      }) 
+    }
+  })
 }
 
 //DELETE - Delete a product
