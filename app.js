@@ -30,6 +30,7 @@ mongoose.connect(url, { useNewUrlParser: true })
 require('./models/product.model')
 require('./models/supermarket.model')
 var productController = require('./controllers/product.controller')
+var supermarketController = require('./controllers/supermarket.controller')
 
 
 // var priceController = require('./controller/price.controller')
@@ -37,6 +38,7 @@ var productController = require('./controllers/product.controller')
 //Router allow to us to easily match the endpoint with their respective controller
 var api = express.Router()
 
+//Product API
 api.route('/product/serial/:serial').get(productController.getBySerial)
 api.route('/product/name/:name').get(productController.getByName)
 api.route('/product/').get(productController.list)
@@ -44,6 +46,11 @@ api.route('/product/').post(productController.add)
 api.route('/product/:id').put(productController.update)
 api.route('/product/add-price/:id').put(productController.addPrice)
 api.route('/product/:id').delete(productController.delete)
+
+//Supermarket API
+api.route('/supermarket/name/:name').get(supermarketController.getByName)
+api.route('/supermarket/logo/:name').get(supermarketController.getLogoByName)
+api.route('/supermarket/').get(supermarketController.list)
 
 //After we define our routes, we have to tell to express that we shall use our 'routes', starting over root
 app.use('/', api)
